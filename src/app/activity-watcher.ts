@@ -11,6 +11,12 @@ import {
 export class ActivityWatcher {
   private log: HarLog = {} as HarLog;
 
+  /**
+   * This method resets the log for a new set of requests.
+   * We create a "document" resource to glue the requests together
+   * so we have the url that kicked off the other requests.
+   * @param url
+   */
   startNewActivity(url: string) {
     const startTime = new Date();
     this.log = {
@@ -78,6 +84,11 @@ export class ActivityWatcher {
     };
   }
 
+  /**
+   * Creates a new entry for the given http request.
+   * @param request
+   * @param startTime
+   */
   addRequest(request: HttpRequest<any>, startTime: Date) {
     try {
       if (!request) {
@@ -138,6 +149,11 @@ export class ActivityWatcher {
     }
   }
 
+  /**
+   * Updates a previously added entry with a response body.
+   * @param response
+   * @param startTime
+   */
   addResponse(response: HttpResponse<any>, startTime: Date) {
     try {
       response = response.clone();
@@ -176,6 +192,11 @@ export class ActivityWatcher {
     }
   }
 
+  /**
+   * If the request fails, add the error messages as the response body instead.
+   * @param error
+   * @param startTime
+   */
   addError(error: HttpErrorResponse, startTime: Date) {
     if (!error) {
       return;
@@ -216,6 +237,9 @@ export class ActivityWatcher {
     }
   }
 
+  /**
+   * Turns the log into a json string, then into a blog and then into a data url.
+   */
   getHar() {
     const har: Har = {
       log: this.log,

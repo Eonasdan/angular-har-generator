@@ -29,7 +29,6 @@ export class AppComponent {
     this.httpClient.get('https://catfact.ninja/fact').subscribe(pushResults);
     this.httpClient.get('https://datausa.io/api/data?drilldowns=Nation&measures=Population').subscribe(pushResults);
     this.httpClient.get('api/fake').subscribe(pushResults);
-
   }
 
   generateHar() {
