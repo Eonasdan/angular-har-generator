@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <p>
+      This is an example of using Angular to create a HAR file that can be imported into Chrome and other tools.
+    </p>
+    <p>
+      First we need to call some endpoints.
+      <button class="btn btn-primary" (click)="fetch()">Fetch</button>
+    </p>
+    <div style="height: 30vh; overflow-y: scroll;">
+      <div *ngFor="let data of dataDumps">
+      <pre>
+{{data | json}}
+      </pre>
+        <hr/>
+      </div>
+    </div>
+  </div>
+  <p>
+    After fetching, we can gather those request into a HAR file
+  </p>
+
+  <button class="btn btn-primary" (click)="generateHar()">Generate</button>
+
+</div>
+
+<a id="blobLink" style="display: none"></a>
